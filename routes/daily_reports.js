@@ -2,10 +2,17 @@
 
 const express = require(`express`)
 const router = express.Router()
+const queries = require(`../queries/reports.js`)
 
 /* CREATE report */
 router.post(`/`, (req, res, next) => {
-  res.send(`respond with a resource`)
+  const newReport = req.body
+
+  queries.createReport(newReport)
+    .then(data => {
+      res.send(`Report Saved`, newReport)
+    })
+    .catch(err => { return next(err) })
 })
 
 /* READ report */
